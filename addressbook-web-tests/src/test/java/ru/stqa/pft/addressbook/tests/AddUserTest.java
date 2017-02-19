@@ -9,9 +9,9 @@ public class AddUserTest extends TestBase {
     @Test
     public void testAddUser() {
 
-        app.newUserAdd();
-        app.fillinTheNewUserForm(new UserData("nameTest", "Name2Test", "addressTest", "1234567", "m@m.com"));
-        app.submitNewUser();
+        app.getUserHelper().newUserAdd();
+        app.getUserHelper().fillinTheNewUserForm(new UserData("nameTest", "Name2Test", "addressTest", "1234567", "m@m.com"));
+        app.getUserHelper().submitNewUser();
     }
 
 
