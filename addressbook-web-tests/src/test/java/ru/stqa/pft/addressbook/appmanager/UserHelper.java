@@ -33,4 +33,12 @@ public class UserHelper  extends  HelperBase{
     public void newUserAdd() {
         click(By.linkText("add new"));
     }
+
+    public void selectUser() {
+        click(By.name("selected[]"));
+    }
+
+    public void deleteUser() {
+        click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
+    }
 }
