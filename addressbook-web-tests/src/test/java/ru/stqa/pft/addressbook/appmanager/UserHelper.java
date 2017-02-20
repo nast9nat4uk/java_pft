@@ -41,4 +41,12 @@ public class UserHelper  extends  HelperBase{
     public void deleteUser() {
         click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
     }
+
+    public void editButton() {
+        click(By.xpath("//div/div[4]/form[2]/table/tbody/tr[3]/td[8]/a/img"));
+    }
+
+    public void updateUser() {
+        click(By.name("update"));
+    }
 }
