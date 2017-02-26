@@ -2,9 +2,10 @@ package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+//import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import sun.plugin2.util.BrowserType;
+import org.openqa.selenium.remote.BrowserType;
 
 import java.util.concurrent.TimeUnit;
 
@@ -27,11 +28,11 @@ public class ApplicationManager {
 
     public void init() {
 
-        if (browser== org.openqa.selenium.remote.BrowserType.FIREFOX){
+        if (browser== BrowserType.FIREFOX){
             wd = new FirefoxDriver();
-        } else if (browser== org.openqa.selenium.remote.BrowserType.CHROME){
+        } else if (browser== BrowserType.CHROME){
             wd = new ChromeDriver();
-        } else if (browser == org.openqa.selenium.remote.BrowserType.IE){
+        } else if (browser == BrowserType.IE){
             wd = new InternetExplorerDriver();
         }
         wd = new FirefoxDriver();
