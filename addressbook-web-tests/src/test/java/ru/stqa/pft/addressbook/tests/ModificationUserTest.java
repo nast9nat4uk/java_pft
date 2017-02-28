@@ -11,7 +11,8 @@ public class ModificationUserTest extends TestBase{
     public void testUserModify(){
         app.getNavigationHelper().gotoUserPage();
         app.getUserHelper().editButton();
-        app.getUserHelper().fillinNewUserForm(new UserData("nameTest", "Name2Test", "addressTest", "1234567", "m@m.com", null), false);
+        app.getUserHelper().fillinNewUserForm(new UserData("nameTest", "Name2Test",
+                "addressTest", "1234567", "m@m.com", null), false);
         app.getUserHelper().updateUser();
     }
 }
