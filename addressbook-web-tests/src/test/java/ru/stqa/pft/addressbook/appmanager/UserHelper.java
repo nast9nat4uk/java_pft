@@ -5,6 +5,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.UserData;
 
@@ -54,7 +55,7 @@ public class UserHelper extends HelperBase {
     }
 
     public void editButton() {
-        click(By.xpath("//div/div[4]/form[2]/table/tbody/tr[3]/td[8]/a/img"));
+        click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
     }
 
     public void updateUser() {
@@ -78,4 +79,6 @@ public class UserHelper extends HelperBase {
     public boolean isThereAUser() {
         return isElementPresent(By.name("selected[]"));
     }
+
+
 }
