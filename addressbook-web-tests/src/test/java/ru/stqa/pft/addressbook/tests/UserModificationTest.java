@@ -1,15 +1,14 @@
 package ru.stqa.pft.addressbook.tests;
 
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.UserData;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Настя on 20.02.2017.
  */
-public class ModificationUserTest extends TestBase{
+public class UserModificationTest extends TestBase{
     WebDriver wd;
     @Test
 
@@ -19,11 +18,15 @@ public class ModificationUserTest extends TestBase{
             app.getUserHelper().createUser(new UserData("nameTest", "Name2Test",
                     "addressTest", "1234567", "m@m.com", "test1"));
         }
-
+        int before =  app.getUserHelper().getUserCount();
        // wd.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         app.getUserHelper().editButton();
         app.getUserHelper().fillinNewUserForm(new UserData("nameTest", "Name2Test",
                 "addressTest", "1234567", "m@m.com", null), false);
         app.getUserHelper().updateUser();
+        app.getNavigationHelper().gotoUserPage();
+        int after =  app.getUserHelper().getUserCount();
+        Assert.assertEquals(after, before);
+
     }
 }
