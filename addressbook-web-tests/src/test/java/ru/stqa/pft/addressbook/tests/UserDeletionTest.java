@@ -19,11 +19,14 @@ public class UserDeletionTest extends TestBase {
                     "addressTest", "1234567", "m@m.com", "test1"));
         }
         List<UserData> before = app.getUserHelper().getUserList();
-        app.getUserHelper().selectUser();
+        app.getUserHelper().selectUser(before.size()-1);
         app.getUserHelper().deleteUser();
         app.getGroupHelper().confirmAlert();
         List<UserData> after = app.getUserHelper().getUserList();
         Assert.assertEquals(after.size(), before.size()-1);
+
+        before.remove(before.size()-1);
+        Assert.assertEquals(before, after);
 
     }
 }

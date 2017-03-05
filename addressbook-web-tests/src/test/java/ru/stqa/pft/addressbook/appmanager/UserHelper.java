@@ -52,8 +52,8 @@ public class UserHelper extends HelperBase {
         click(By.linkText("add new"));
     }
 
-    public void selectUser() {
-        click(By.name("selected[]"));
+    public void selectUser(int index) {
+        wd.findElements(By.name("selected[]")).get(index).click();
     }
 
     public void deleteUser() {
@@ -93,13 +93,17 @@ public class UserHelper extends HelperBase {
 
     public List<UserData> getUserList() {
         List<UserData> users =  new ArrayList<UserData>();
-        List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']//td[3]"));
+        List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element: elements) {
-            String name = element.getText();
-            UserData user = new UserData(name, null,null,null,null,null);
+            String name = element.findElement(By.xpath(".//td[3]")).getText();
+            String lastname = element.findElement(By.xpath(".//td[2]")).getText();
+            UserData user = new UserData(name, lastname,null,null,null,null);
             users.add(user);
+
         }
+        System.out.println(users);
         return users;
+
 
     }
 }
