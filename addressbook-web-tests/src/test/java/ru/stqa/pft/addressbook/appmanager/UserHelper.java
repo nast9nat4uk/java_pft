@@ -1,13 +1,19 @@
 package ru.stqa.pft.addressbook.appmanager;
 
+import com.sun.jna.platform.win32.Netapi32Util;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.UserData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Настя on 19.02.2017.
@@ -83,5 +89,17 @@ public class UserHelper extends HelperBase {
 
     public int getUserCount() {
         return wd.findElements(By.name("selected[]")).size();
+    }
+
+    public List<UserData> getUserList() {
+        List<UserData> users =  new ArrayList<UserData>();
+        List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']//td[3]"));
+        for (WebElement element: elements) {
+            String name = element.getText();
+            UserData user = new UserData(name, null,null,null,null,null);
+            users.add(user);
+        }
+        return users;
+
     }
 }

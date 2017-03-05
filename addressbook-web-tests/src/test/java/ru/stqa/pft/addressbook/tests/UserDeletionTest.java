@@ -4,6 +4,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.UserData;
 
+import java.util.List;
+
 /**
  * Created by Настя on 20.02.2017.
  */
@@ -16,12 +18,12 @@ public class UserDeletionTest extends TestBase {
             app.getUserHelper().createUser(new UserData("nameTest", "Name2Test",
                     "addressTest", "1234567", "m@m.com", "test1"));
         }
-        int before =  app.getUserHelper().getUserCount();
+        List<UserData> before = app.getUserHelper().getUserList();
         app.getUserHelper().selectUser();
         app.getUserHelper().deleteUser();
         app.getGroupHelper().confirmAlert();
-        int after =  app.getUserHelper().getUserCount();
-        Assert.assertEquals(after, before-1);
+        List<UserData> after = app.getUserHelper().getUserList();
+        Assert.assertEquals(after.size(), before.size()-1);
 
     }
 }
