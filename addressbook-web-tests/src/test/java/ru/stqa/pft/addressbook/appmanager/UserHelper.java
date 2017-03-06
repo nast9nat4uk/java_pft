@@ -60,8 +60,9 @@ public class UserHelper extends HelperBase {
         click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
     }
 
-    public void editButton() {
-        click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+    public void editButton(int index) {
+        wd.findElements(By.xpath("//img[@title='Edit']")).get(index).click();
+        //click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
     }
 
     public void updateUser() {
@@ -101,7 +102,7 @@ public class UserHelper extends HelperBase {
             users.add(user);
 
         }
-        System.out.println(users);
+
         return users;
 
 
