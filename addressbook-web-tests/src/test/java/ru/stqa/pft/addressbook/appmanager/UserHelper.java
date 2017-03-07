@@ -15,6 +15,8 @@ import ru.stqa.pft.addressbook.model.UserData;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+
 /**
  * Created by Настя on 19.02.2017.
  */
@@ -98,7 +100,8 @@ public class UserHelper extends HelperBase {
         for (WebElement element: elements) {
             String name = element.findElement(By.xpath(".//td[3]")).getText();
             String lastname = element.findElement(By.xpath(".//td[2]")).getText();
-            UserData user = new UserData(name, lastname,null,null,null,null);
+            String id = element.findElement(By.tagName("input")).getAttribute("value");
+            UserData user = new UserData(id, name, lastname,null,null,null,null);
             users.add(user);
 
         }
@@ -106,5 +109,10 @@ public class UserHelper extends HelperBase {
         return users;
 
 
+    }
+
+    public void waitForElement(By locator) {
+        WebDriverWait wait = new WebDriverWait(wd, 15/*seconds*/);
+        WebElement element = wait.until(presenceOfElementLocated(locator));
     }
 }
