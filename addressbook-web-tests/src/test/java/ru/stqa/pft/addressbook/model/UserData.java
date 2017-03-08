@@ -1,7 +1,7 @@
 package ru.stqa.pft.addressbook.model;
 
 public class UserData {
-    private final String id;
+    private int id;
     private final String name;
     private final String lastName;
     private final String address;
@@ -9,7 +9,7 @@ public class UserData {
     private final String email;
     private String group;
 
-    public UserData(String id, String name, String lastName, String address, String phone, String email, String group ) {
+    public UserData(int id, String name, String lastName, String address, String phone, String email, String group ) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -19,8 +19,13 @@ public class UserData {
         this.group = group;
     }
 
-    public UserData( String name, String lastName, String address, String phone, String email, String group ) {
-        this.id = null;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public UserData(String name, String lastName, String address, String phone, String email, String group ) {
+        this.id = 0;
+
         this.name = name;
         this.lastName = lastName;
         this.address = address;
@@ -29,6 +34,8 @@ public class UserData {
         this.group = group;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -36,14 +43,14 @@ public class UserData {
 
         UserData userData = (UserData) o;
 
-        if (id != null ? !id.equals(userData.id) : userData.id != null) return false;
+        if (id != userData.id) return false;
         if (name != null ? !name.equals(userData.name) : userData.name != null) return false;
         return lastName != null ? lastName.equals(userData.lastName) : userData.lastName == null;
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
+        int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         return result;
@@ -52,13 +59,13 @@ public class UserData {
     @Override
     public String toString() {
         return "UserData{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 '}';
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
