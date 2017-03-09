@@ -9,7 +9,7 @@ public class UserData {
     private final String email;
     private String group;
 
-    public UserData(int id, String name, String lastName, String address, String phone, String email, String group ) {
+    public UserData(int id, String name, String lastName, String address, String phone, String email, String group) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -23,9 +23,8 @@ public class UserData {
         this.id = id;
     }
 
-    public UserData(String name, String lastName, String address, String phone, String email, String group ) {
+    public UserData(String name, String lastName, String address, String phone, String email, String group) {
         this.id = 0;
-
         this.name = name;
         this.lastName = lastName;
         this.address = address;
@@ -33,7 +32,6 @@ public class UserData {
         this.email = email;
         this.group = group;
     }
-
 
 
     @Override
@@ -62,6 +60,7 @@ public class UserData {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
+                ", group='" + group + '\'' +
                 '}';
     }
 
