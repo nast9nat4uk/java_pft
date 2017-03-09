@@ -2,6 +2,7 @@ package ru.stqa.pft.addressbook.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.UserData;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -14,7 +15,7 @@ public class UserCreationTest extends TestBase {
     public void testAddUser() {
 
         List<UserData> before = app.getUserHelper().getUserList();
-        UserData user = new UserData("nameTest333", "Name2Test",null, null, null, null);
+        UserData user = new UserData("nameTest333", "Name2Test",null, null, null, "test1");
 
         app.getUserHelper().createUser(user);
         List<UserData> after = app.getUserHelper().getUserList();
@@ -22,9 +23,12 @@ public class UserCreationTest extends TestBase {
 
 
 
-        user.setId(after.stream().max((Comparator<UserData>) (o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
+        user.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
         before.add(user);
-        Assert.assertEquals(new HashSet<>(before),new HashSet<>(after));
+        Comparator<? super UserData> byId = (u1, u2) -> Integer.compare(u1.getId(), u2.getId());
+        before.sort(byId);
+        after.sort(byId);
+        Assert.assertEquals(before,after);
 
     }
 

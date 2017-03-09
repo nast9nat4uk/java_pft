@@ -42,7 +42,7 @@ public class UserHelper extends HelperBase {
         type(By.name("home"), userData.getPhone());
         type(By.name("email"), userData.getEmail());
 
-        if (creation ){
+        if (creation){
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroup());
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
