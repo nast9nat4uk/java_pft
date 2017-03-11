@@ -2,26 +2,21 @@ package ru.stqa.pft.addressbook.tests;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.UserData;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 
 public class UserCreationTest extends TestBase {
 
 
-    @Test
+    @Test (enabled = false)
     public void testAddUser() {
 
-        List<UserData> before = app.getUserHelper().getUserList();
+        List<UserData> before = app.user().list();
         UserData user = new UserData("nameTest333", "Name2Test",null, null, null, "test1");
-
-        app.getUserHelper().createUser(user);
-        List<UserData> after = app.getUserHelper().getUserList();
+        app.user().create(user);
+        List<UserData> after = app.user().list();
         Assert.assertEquals(after.size(), before.size()+1);
-
-
 
         user.setId(after.stream().max((o1, o2) -> Integer.compare(o1.getId(), o2.getId())).get().getId());
         before.add(user);

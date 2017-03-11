@@ -58,7 +58,7 @@ public class UserHelper extends HelperBase {
         wd.findElements(By.name("selected[]")).get(index).click();
     }
 
-    public void deleteUser() {
+    public void delete() {
         click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
     }
 
@@ -67,17 +67,22 @@ public class UserHelper extends HelperBase {
         //click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
     }
 
-    public void updateUser() {
+    public void update() {
         click(By.name("update"));
     }
 
-    public void createUser(UserData user) {
+    public void create(UserData user) {
         newUserAdd();
         fillinNewUserForm(user, true);
         submitNewUser();
         returnToUserPage();
+    }
 
-
+    public void modify(int index, UserData user) {
+       editButton(index);
+       fillinNewUserForm(user, false);
+       update();
+       returnToUserPage();
     }
 
     private void returnToUserPage() {
@@ -94,7 +99,7 @@ public class UserHelper extends HelperBase {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    public List<UserData> getUserList() {
+    public List<UserData> list() {
         List<UserData> users =  new ArrayList<UserData>();
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element: elements) {
