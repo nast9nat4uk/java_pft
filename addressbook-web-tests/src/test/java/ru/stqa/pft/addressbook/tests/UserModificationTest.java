@@ -17,8 +17,7 @@ public class UserModificationTest extends TestBase {
     public void ensurePreconditions() {
         app.goTo().userPage();
         if (app.user().list().size() ==0) {
-            app.user().create(new UserData("nameTest", "Name2Test",
-                    "addressTest", "1234567", "m@m.com", "test1"));
+            app.user().create(new UserData().withName("nameTest").withLastName("Name2Test"));
         }
     }
 
@@ -28,10 +27,7 @@ public class UserModificationTest extends TestBase {
     public void testUserModify() {
         List<UserData> before = app.user().list();
         int index = before.size() - 1;
-        //ожидание
-        //app.user().waitForElement(By.xpath("//img[@title='Edit']"));
-        UserData user = new UserData(before.get(index).getId(), "nameTest", "Name2Test",
-                "addressTest", "1234567", "m@m.com", null);
+        UserData user = new UserData().withId(before.get(index).getId()).withName("nameTest").withLastName("Name2Test").withAddress("addressTest").withPhone("1234567").withEmail( "m@m.com");
         app.user().modify(index, user);
         List<UserData> after = app.user().list();
         Assert.assertEquals(after.size(), before.size());

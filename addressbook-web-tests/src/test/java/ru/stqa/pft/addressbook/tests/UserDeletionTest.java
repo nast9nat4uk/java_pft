@@ -16,11 +16,11 @@ public class UserDeletionTest extends TestBase {
     public void ensurePreconditions() {
         app.goTo().userPage();
         if (app.user().list().size() ==0) {
-            app.user().create(new UserData("nameTest", "Name2Test",
-                    "addressTest", "1234567", "m@m.com", "test1"));
+            app.user().create(new UserData().withName("nameTest").withLastName("Name2Test")
+                    .withAddress("addressTest").withPhone( "1234567").withEmail( "m@m.com").withGroup( "test1"));
         }
     }
-    @Test (enabled = false)
+    @Test //(enabled = false)
 
     public void testDeleteUser() {
         List<UserData> before = app.user().list();

@@ -1,36 +1,48 @@
 package ru.stqa.pft.addressbook.model;
 
 public class UserData {
-    private int id;
-    private final String name;
-    private final String lastName;
-    private final String address;
-    private final String phone;
-    private final String email;
+    private  String name;
+    private  String lastName;
+    private  String address;
+    private  String phone;
+    private  String email;
     private String group;
+    private int id = 0;
 
-    public UserData(int id, String name, String lastName, String address, String phone, String email, String group) {
-        this.id = id;
+    public UserData withName(String name) {
         this.name = name;
-        this.lastName = lastName;
-        this.address = address;
-        this.phone = phone;
-        this.email = email;
-        this.group = group;
+        return this;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public UserData withLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
     }
 
-    public UserData(String name, String lastName, String address, String phone, String email, String group) {
-        this.id = 0;
-        this.name = name;
-        this.lastName = lastName;
+    public UserData withAddress(String address) {
         this.address = address;
+        return this;
+    }
+
+    public UserData withPhone(String phone) {
         this.phone = phone;
+        return this;
+    }
+
+    public UserData withEmail(String email) {
         this.email = email;
+        return this;
+    }
+
+    public UserData withGroup(String group) {
         this.group = group;
+        return this;
+    }
+
+
+    public UserData withId(int id) {
+        this.id = id;
+        return this;
     }
 
 
