@@ -6,6 +6,7 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.UserData;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Настя on 20.02.2017.
@@ -15,23 +16,24 @@ public class UserDeletionTest extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
         app.goTo().userPage();
-        if (app.user().list().size() ==0) {
+        if (app.user().all().size() ==0) {
             app.user().create(new UserData().withName("nameTest").withLastName("Name2Test")
                     .withAddress("addressTest").withPhone( "1234567").withEmail( "m@m.com").withGroup( "test1"));
         }
     }
-    @Test //(enabled = false)
+    @Test
 
     public void testDeleteUser() {
-        List<UserData> before = app.user().list();
-        int index = before.size() - 1;
-        app.user().selectUser(index);
-        app.user().delete();
+        Set<UserData> before = app.user().all();
+        UserData deletedUser = before.iterator().next();
+        app.user().deleteUser(deletedUser);
         app.group().confirmAlert();
-        List<UserData> after = app.user().list();
+        Set<UserData> after = app.user().all();
         Assert.assertEquals(after.size(), before.size()-1);
-        before.remove(index);
+        before.remove(deletedUser);
         Assert.assertEquals(before, after);
 
     }
+
+
 }
