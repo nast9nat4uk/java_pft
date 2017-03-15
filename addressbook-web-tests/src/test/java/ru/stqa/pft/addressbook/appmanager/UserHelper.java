@@ -65,6 +65,7 @@ public class UserHelper extends HelperBase {
     public void deleteUser(UserData user) {
         selectUserById(user.getId());
         deleteSelectedUser();
+        userCache = null;
     }
 
 
@@ -83,6 +84,7 @@ public class UserHelper extends HelperBase {
         newUserAdd();
         fillinNewUserForm(user, true);
         submitNewUser();
+        userCache = null;
         returnToUserPage();
     }
 
@@ -90,6 +92,7 @@ public class UserHelper extends HelperBase {
        editButtonById(user.getId());
        fillinNewUserForm(user, false);
        update();
+       userCache = null;
        returnToUserPage();
     }
 
@@ -107,17 +110,20 @@ public class UserHelper extends HelperBase {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-
+    private  Users userCache = null;
     public Users all() {
-        Users users =  new Users();
+        if(userCache!=null){
+            return new Users(userCache);
+        }
+        userCache =  new Users();
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element: elements) {
             String name = element.findElement(By.xpath(".//td[3]")).getText();
             String lastname = element.findElement(By.xpath(".//td[2]")).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            users.add(new UserData().withId(id).withName(name).withLastName(lastname));
+            userCache.add(new UserData().withId(id).withName(name).withLastName(lastname));
         }
-        return users;
+        return new Users(userCache);
     }
 
     public void waitForElement(By locator) {
