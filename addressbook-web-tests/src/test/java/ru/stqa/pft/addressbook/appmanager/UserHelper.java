@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.UserData;
+import ru.stqa.pft.addressbook.model.Users;
 
 import java.util.HashSet;
 import java.util.List;
@@ -107,8 +108,8 @@ public class UserHelper extends HelperBase {
     }
 
 
-    public Set<UserData> all() {
-        Set<UserData> users =  new HashSet<UserData>();
+    public Users all() {
+        Users users =  new Users();
         List<WebElement> elements = wd.findElements(By.name("entry"));
         for (WebElement element: elements) {
             String name = element.findElement(By.xpath(".//td[3]")).getText();
