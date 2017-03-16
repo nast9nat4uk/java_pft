@@ -40,8 +40,14 @@ public class UserHelper extends HelperBase {
         type(By.name("home"), userData.getPhone());
         type(By.name("email"), userData.getEmail());
 
-        if (creation){
-            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroup());
+        if (creation) {
+            if (userData.getGroup() == null) {
+                new Select(wd.findElement
+                        (By.name("new_group"))).selectByValue("[none]");//группа по умолчанию
+            } else {
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(userData.getGroup());
+            }
+
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
@@ -54,7 +60,7 @@ public class UserHelper extends HelperBase {
 
 
     public void selectUserById(int id) {
-        wd.findElement(By.cssSelector("input[value='"+id+"']")).click();
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
     public void deleteSelectedUser() {
@@ -70,7 +76,7 @@ public class UserHelper extends HelperBase {
 
 
     public void editButtonById(int id) {
-        WebElement td = wd.findElement(By.cssSelector("input[value='"+id+"']"));
+        WebElement td = wd.findElement(By.cssSelector("input[value='" + id + "']"));
         WebElement raw = td.findElement(By.xpath(" ./../.."));//Подняться от текущего на 2 элемента вверх
         raw.findElement(By.xpath(".//img[@title='Edit']")).click();
     }
@@ -89,11 +95,11 @@ public class UserHelper extends HelperBase {
     }
 
     public void modify(UserData user) {
-       editButtonById(user.getId());
-       fillinNewUserForm(user, false);
-       update();
-       userCache = null;
-       returnToUserPage();
+        editButtonById(user.getId());
+        fillinNewUserForm(user, false);
+        update();
+        userCache = null;
+        returnToUserPage();
     }
 
     private void returnToUserPage() {
@@ -106,18 +112,19 @@ public class UserHelper extends HelperBase {
     }
 
 
-    public int getUserCount() {
+    public int count() {
         return wd.findElements(By.name("selected[]")).size();
     }
 
-    private  Users userCache = null;
+    private Users userCache = null;
+
     public Users all() {
-        if(userCache!=null){
+        if (userCache != null) {
             return new Users(userCache);
         }
-        userCache =  new Users();
+        userCache = new Users();
         List<WebElement> elements = wd.findElements(By.name("entry"));
-        for (WebElement element: elements) {
+        for (WebElement element : elements) {
             String name = element.findElement(By.xpath(".//td[3]")).getText();
             String lastname = element.findElement(By.xpath(".//td[2]")).getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));

@@ -6,7 +6,7 @@ public class UserData {
     private  String address;
     private  String phone;
     private  String email;
-    private String group;
+    private  String group;
     private int id = 0;
 
     public UserData withName(String name) {
