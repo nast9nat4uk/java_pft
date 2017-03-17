@@ -29,7 +29,7 @@ public class UserModificationTest extends TestBase {
         Users before = app.user().all();
         UserData modifiedUser = before.iterator().next();//выбираем юзера из множества случайным образом
         UserData user = new UserData().withId(modifiedUser.getId()).withName("nameTest")
-                .withLastName("Name2Test").withAddress("addressTest").withPhone("1234567").withEmail( "m@m.com");
+                .withLastName("Name2Test").withAddress("addressTest").withHomePhone("1234567").withEmail( "m@m.com");
         app.user().modify(user);
         assertThat(app.user().count(), equalTo(before.size()));
         Users after = app.user().all();
