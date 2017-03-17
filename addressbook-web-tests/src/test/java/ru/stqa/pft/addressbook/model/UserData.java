@@ -12,6 +12,8 @@ public class UserData {
     private String work;
     private String email2;
     private String email3;
+    private String allPhones;
+    private String allEmails;
 
     public UserData withName(String name) {
         this.name = name;
@@ -66,6 +68,16 @@ public class UserData {
 
     public UserData withEmail3(String email3) {
         this.email3 = email3;
+        return this;
+    }
+
+    public UserData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return  this;
+    }
+
+    public UserData withAllEmails(String allEmails) {
+        this.allEmails = allEmails;
         return this;
     }
 
@@ -143,4 +155,14 @@ public class UserData {
     public String getEmail3() {
         return email3;
     }
+
+    public String getAllPhones() {
+        return allPhones;
+    }
+
+    public String getAllEmails() {
+        return allEmails;
+    }
+
+
 }

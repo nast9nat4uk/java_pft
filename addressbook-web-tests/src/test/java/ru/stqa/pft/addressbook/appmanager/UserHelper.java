@@ -125,19 +125,13 @@ public class UserHelper extends HelperBase {
             String name = element.findElement(By.xpath(".//td[3]")).getText();
             String lastname = element.findElement(By.xpath(".//td[2]")).getText();
             String address = element.findElement(By.xpath(".//td[4]")).getText();
-            String[] emails = element.findElement(By.xpath(".//td[5]")).getText().split("\n");
-            String[] phones = element.findElement(By.xpath(".//td[6]")).getText().split("\n");//regexp. Результат - массив из 3х элементов
+            String allEmails = element.findElement(By.xpath(".//td[5]")).getText();
+            String allPhones = element.findElement(By.xpath(".//td[6]")).getText();
 
-            userCache.add(new UserData().withId(id).withName(name).withLastName(lastname).withHomePhone(phones[0])
-            .withMobilePhone(phones[1]).withWorkPhone(phones[2]).withAddress(address).withEmail(emails[0])
-            .withEmail2(emails[1]).withEmail3(emails[2]));
+            userCache.add(new UserData().withId(id).withName(name).withLastName(lastname).withAllPhones(allPhones)
+                    .withAddress(address).withAllEmails(allEmails));
         }
         return new Users(userCache);
-    }
-
-    public void waitForElement(By locator) {
-        WebDriverWait wait = new WebDriverWait(wd, 15/*seconds*/);
-        WebElement element = wait.until(presenceOfElementLocated(locator));
     }
 
     public UserData infoFromEditForm(UserData user) {

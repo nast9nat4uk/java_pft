@@ -5,6 +5,10 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.UserData;
 
+import java.util.Arrays;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
@@ -26,14 +30,23 @@ public void testUserPhones(){
         UserData user = app.user().all().iterator().next();
         UserData userInfoFromEditForm = app.user().infoFromEditForm(user);
         assertThat(user.getHome(), equalTo(cleaned(userInfoFromEditForm.getHome())));
-        assertThat(user.getMobile(), equalTo(cleaned(userInfoFromEditForm.getMobile())));
-        assertThat(user.getWork(), equalTo(cleaned(userInfoFromEditForm.getWork())));
-        assertThat(user.getAddress(), equalTo(userInfoFromEditForm.getAddress()));
+
+        assertThat(user.getAllPhones(), equalTo(mergePhones(userInfoFromEditForm)));
+
+
         assertThat(user.getEmail(), equalTo(userInfoFromEditForm.getEmail()));
         assertThat(user.getEmail2(), equalTo(userInfoFromEditForm.getEmail2()));
         assertThat(user.getEmail3(), equalTo(userInfoFromEditForm.getEmail3()));
     }
-    public String cleaned(String phone){
+
+    private String mergePhones(UserData user) {
+        return Arrays.asList(user.getHome(),user.getMobile(),user.getWork())
+                .stream().filter((s) -> ! s.equals("")).map(UserPhoneTest::cleaned)
+                .collect(Collectors.joining("\n"));
+    }
+    
+
+    public static  String cleaned(String phone){
     return phone.replaceAll("\\s","").replaceAll("[-()]","");
 
     }
