@@ -14,6 +14,9 @@ public class UserData {
     private String email3;
     private String allPhones;
     private String allEmails;
+    private String fullname;
+    private String allInfo;
+
 
     public UserData withName(String name) {
         this.name = name;
@@ -22,6 +25,11 @@ public class UserData {
 
     public UserData withLastName(String lastName) {
         this.lastName = lastName;
+        return this;
+    }
+
+    public UserData withFullname(String fullname) {
+        this.fullname = fullname;
         return this;
     }
 
@@ -81,6 +89,13 @@ public class UserData {
         return this;
     }
 
+    public UserData withAllInfo(String allInfo) {
+        this.allInfo = allInfo;
+        return this;
+    }
+
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -124,6 +139,10 @@ public class UserData {
         return lastName;
     }
 
+    public String getFullname() {
+        return fullname;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -162,6 +181,10 @@ public class UserData {
 
     public String getAllEmails() {
         return allEmails;
+    }
+
+    public String getAllInfo() {
+        return allInfo;
     }
 
 

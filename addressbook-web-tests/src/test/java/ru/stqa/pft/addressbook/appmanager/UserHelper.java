@@ -77,6 +77,10 @@ public class UserHelper extends HelperBase {
         wd.findElement(By.cssSelector(String.format("a[href='edit.php?id=%s']", id))).click();
     }
 
+    private void detailsButtonById(int id) {
+        wd.findElement(By.cssSelector(String.format("a[href='view.php?id=%s']", id))).click();
+    }
+
 
     public void update() {
         click(By.name("update"));
@@ -151,4 +155,12 @@ public class UserHelper extends HelperBase {
                 .withEmail(email).withEmail2(email2).withEmail3(email3);
 
     }
+
+    public String infoFromDetailsForm(UserData user) {
+        detailsButtonById(user.getId());
+        String allInfo = wd.findElement(By.id("content")).getText();
+        return  allInfo;
+    }
+
+
 }
