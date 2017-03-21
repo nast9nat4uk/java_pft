@@ -23,6 +23,9 @@ public class UserDataGenerator {
     @Parameter (names = "-f", description = "Target file")
     public  String file;
 
+    @Parameter (names = "-d", description = "Target format")
+    public  String format;
+
     public  static  void main(String[] args) throws IOException {
         UserDataGenerator generator = new UserDataGenerator();
         JCommander jCommander = new JCommander(generator);
