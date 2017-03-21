@@ -6,7 +6,7 @@ import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.UserData;
 import ru.stqa.pft.addressbook.model.Users;
 
-import java.io.File;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -17,12 +17,16 @@ import static org.hamcrest.MatcherAssert.*;
 public class UserCreationTest extends TestBase {
 
     @DataProvider
-    public Iterator<Object[]> validUsers(){
+    public Iterator<Object[]> validUsers() throws IOException {
         List<Object[]> list =  new ArrayList<Object[]>();
-        list.add(new Object[] {new UserData().withName("name1").withLastName("lastname1")});
-        list.add(new Object[] {new UserData().withName("name2").withLastName("lastname2")});
-        list.add(new Object[] {new UserData().withName("name3").withLastName("lastname3")});
-        return list.iterator();
+       BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/users.csv")));
+       String line = reader.readLine();
+       while (line!=null) {
+           String[] split = line.split(";");
+           list.add(new Object[]{new UserData().withName(split[0]).withLastName(split[1])});
+           line = reader.readLine();
+       }
+           return list.iterator();
     }
 
 

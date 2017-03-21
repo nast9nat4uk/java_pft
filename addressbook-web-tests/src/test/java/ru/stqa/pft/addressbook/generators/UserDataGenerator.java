@@ -44,7 +44,7 @@ public class UserDataGenerator {
     private static void save(List<UserData> users, File file) throws IOException {
         Writer writer = new FileWriter(file);
         for (UserData user:users){
-            writer.write(String.format(("%s %s\n"),user.getName(),user.getLastName()));
+            writer.write(String.format(("%s;%s\n"),user.getName(),user.getLastName()));
         }
         writer.close();
     }
