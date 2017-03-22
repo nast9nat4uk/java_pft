@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.tests;
 
+import com.thoughtworks.xstream.XStream;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
@@ -10,6 +11,8 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
@@ -18,15 +21,17 @@ public class UserCreationTest extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validUsers() throws IOException {
-        List<Object[]> list =  new ArrayList<Object[]>();
-       BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/users.csv")));
+       BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/users.xml")));
        String line = reader.readLine();
+       String xml = "";
        while (line!=null) {
-           String[] split = line.split(";");
-           list.add(new Object[]{new UserData().withName(split[0]).withLastName(split[1])});
+           xml+=line;
            line = reader.readLine();
        }
-           return list.iterator();
+        XStream xstream = new XStream();
+        xstream.processAnnotations(UserData.class);
+        List<UserData> users =(List<UserData>) xstream.fromXML(xml);
+        return users.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
     }
 
 

@@ -1,13 +1,19 @@
 package ru.stqa.pft.addressbook.model;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import java.io.File;
 
+@XStreamAlias("user")
 public class UserData {
+
     private  String name;
     private  String lastName;
     private  String address;
     private  String email;
     private  String group;
+    @XStreamOmitField
     private int id = 0;
     private String home;
     private String mobile;

@@ -3,6 +3,8 @@ package ru.stqa.pft.addressbook.generators;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import com.sun.jna.platform.win32.Netapi32Util;
+import com.thoughtworks.xstream.XStream;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.UserData;
 
@@ -23,7 +25,7 @@ public class UserDataGenerator {
     @Parameter (names = "-f", description = "Target file")
     public  String file;
 
-    @Parameter (names = "-d", description = "Target format")
+    @Parameter (names = "-d", description = "Data format")
     public  String format;
 
     public  static  void main(String[] args) throws IOException {
@@ -40,11 +42,25 @@ public class UserDataGenerator {
 
     private void run() throws IOException {
         List<UserData> users = generateUsers(count);
-        save(users,new File(file));
+        if (format.equals("csv")) {
+            saveAsCsv(users, new File(file));
+        } else if (format.equals("xml")){
+            saveAsXml(users, new File(file));
+        } else {
+            System.out.println("Unrecognized format %s" + format);
+    }
     }
 
+    private void saveAsXml(List<UserData> users, File file) throws IOException {
+        XStream xStream = new XStream();
+        xStream.processAnnotations(UserData.class);//читает подсказки для класса UserData.class, для генерации xml с заданным тегом
+        String xml = xStream.toXML(users);
+        Writer writer  = new FileWriter(file);
+        writer.write(xml);
+        writer.close();
+    }
 
-    private static void save(List<UserData> users, File file) throws IOException {
+    private void saveAsCsv(List<UserData> users, File file) throws IOException {
         Writer writer = new FileWriter(file);
         for (UserData user:users){
             writer.write(String.format(("%s;%s\n"),user.getName(),user.getLastName()));
