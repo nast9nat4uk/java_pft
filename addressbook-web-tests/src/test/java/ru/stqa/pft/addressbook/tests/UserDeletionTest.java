@@ -29,6 +29,7 @@ public class UserDeletionTest extends TestBase {
         UserData deletedUser = before.iterator().next();
         app.user().deleteUser(deletedUser);
         app.group().confirmAlert();
+        app.goTo().userPage();
         assertThat(app.user().count(), equalTo(before.size()-1));
         Users after = app.user().all();
         assertThat(after, equalTo(before.without(deletedUser)));

@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.tests;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.thoughtworks.xstream.XStream;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
@@ -53,6 +54,7 @@ public class UserCreationTest extends TestBase {
 
     @Test (dataProvider = "validUsersFromJson")
     public void testAddUser(UserData user) {
+        app.goTo().userPage();
         Users before = app.user().all();
         File photo = new File("src/test/resources/1.jpg");
         app.user().create(user);
