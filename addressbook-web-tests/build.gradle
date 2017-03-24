@@ -9,9 +9,10 @@ dependencies {
     compile 'org.testng:testng:6.10'
     compile 'org.seleniumhq.selenium:selenium-java:2.53.1'
     compile 'org.hamcrest:java-hamcrest:2.0.0.0'
-    compile 'com.beust:jcommander:1.64'
-    compile 'com.thoughtworks.xstream:xstream:1.4.9'
-    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.beust:jcommander:1.64' //для разбора опций командной строки
+    compile 'com.thoughtworks.xstream:xstream:1.4.9' //для работы с xml
+    compile 'com.google.code.gson:gson:2.8.0' //для работы с json
+    compile 'ch.qos.logback:logback-classic:1.2.2' //Для протоколирования
 }
 
 task testGroups (type: Test) {
