@@ -13,6 +13,8 @@ dependencies {
     compile 'com.thoughtworks.xstream:xstream:1.4.9' //для работы с xml
     compile 'com.google.code.gson:gson:2.8.0' //для работы с json
     compile 'ch.qos.logback:logback-classic:1.2.2' //Для протоколирования
+    compile 'mysql:mysql-connector-java:6.0.6' //для работы с mysql
+    compile 'org.hibernate:hibernate-core:5.2.9.Final' //для ?
 }
 
 task testGroups (type: Test) {
