@@ -3,30 +3,56 @@ package ru.stqa.pft.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 
 @XStreamAlias("user")
+@Entity
+@Table(name="addressbook")
+
 public class UserData {
     @Expose
+    @Column(name = "firstname")
     private  String name;
     @Expose
+    @Column(name = "lastname")
     private  String lastName;
+    @Transient
     private  String address;
+    @Transient
     private  String email;
+    @Transient
     private  String group;
     @XStreamOmitField
+    @Id
+    @Column(name = "id")
     private int id = 0;
+    @Column(name = "home")
+    @Type(type="text")
     private String home;
+    @Type(type="text")
+    @Column(name = "mobile")
     private String mobile;
+    @Type(type="text")
+    @Column(name = "work")
     private String work;
+    @Transient
     private String email2;
+    @Transient
     private String email3;
+    @Transient
     private String allPhones;
+    @Transient
     private String allEmails;
+    @Transient
     private String fullname;
+    @Transient
     private String allInfo;
-    private File photo;
+    @Column(name = "photo")
+    @Type(type="text")
+    private String  photo;
 
 
     public UserData withName(String name) {
@@ -106,7 +132,7 @@ public class UserData {
     }
 
     public UserData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 
@@ -204,7 +230,7 @@ public class UserData {
     }
 
     public File getPhoto() {
-        return photo;
+        return new File(photo);
     }
 
 }
