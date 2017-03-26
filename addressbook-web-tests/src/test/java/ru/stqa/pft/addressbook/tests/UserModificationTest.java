@@ -20,7 +20,7 @@ public class UserModificationTest extends TestBase {
     public void ensurePreconditions() {
         app.goTo().userPage();
         if (app.db().users().size() ==0) {
-            app.user().create(new UserData().withName("nameTest").withLastName("Name2Test").withPhoto(new File("src/test/resources/1.jpg")));
+            app.user().create(new UserData().withName("nameTest").withLastName("Name2Test"));
         }
     }
 
@@ -31,8 +31,7 @@ public class UserModificationTest extends TestBase {
         Users before = app.db().users();
         UserData modifiedUser = before.iterator().next();//выбираем юзера из множества случайным образом
         UserData user = new UserData().withId(modifiedUser.getId()).withName("nameTest")
-                .withLastName("Name2Test").withAddress("addressTest").withHomePhone("1234567").withEmail( "m@m.com")
-                .withPhoto(new File("src/test/resources/1.jpg"));
+                .withLastName("Name2Test").withAddress("addressTest").withHomePhone("1234567").withEmail( "m@m.com");
         app.user().modify(user);
         assertThat(app.user().count(), equalTo(before.size()));
         Users after = app.db().users();

@@ -57,7 +57,7 @@ public class UserCreationTest extends TestBase {
         app.goTo().userPage();
         Users before = app.db().users();
         File photo = new File("src/test/resources/1.jpg");
-        app.user().create(user.withPhoto(photo));
+        app.user().create(user);
         assertThat(app.user().count(), equalTo(before.size()+1));
         Users after = app.db().users();
         assertThat(after, equalTo(
