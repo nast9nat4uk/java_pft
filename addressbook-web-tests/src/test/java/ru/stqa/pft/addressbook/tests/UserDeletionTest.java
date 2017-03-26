@@ -6,6 +6,8 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.UserData;
 import ru.stqa.pft.addressbook.model.Users;
 
+import java.io.File;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -17,21 +19,21 @@ public class UserDeletionTest extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
         app.goTo().userPage();
-        if (app.user().all().size() ==0) {
+        if (app.db().users().size() ==0) {
             app.user().create(new UserData().withName("nameTest").withLastName("Name2Test")
-                    .withAddress("addressTest").withHomePhone( "1234567").withEmail( "m@m.com").withGroup( "test1"));
+                    .withAddress("addressTest").withHomePhone( "1234567").withEmail( "m@m.com").withGroup( "test1").withPhoto(new File("src/test/resources/1.jpg")));
         }
     }
     @Test
 
     public void testDeleteUser() {
-        Users before = app.user().all();
+        Users before = app.db().users();
         UserData deletedUser = before.iterator().next();
         app.user().deleteUser(deletedUser);
         app.group().confirmAlert();
         app.goTo().userPage();
         assertThat(app.user().count(), equalTo(before.size()-1));
-        Users after = app.user().all();
+        Users after = app.db().users();
         assertThat(after, equalTo(before.without(deletedUser)));
 
     }

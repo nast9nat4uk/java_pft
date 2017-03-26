@@ -50,6 +50,7 @@ public class UserData {
     private String fullname;
     @Transient
     private String allInfo;
+
     @Column(name = "photo")
     @Type(type="text")
     private String  photo;

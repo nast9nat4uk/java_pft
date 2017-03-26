@@ -6,6 +6,8 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.UserData;
 import ru.stqa.pft.addressbook.model.Users;
 
+import java.io.File;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -17,8 +19,8 @@ public class UserModificationTest extends TestBase {
     @BeforeMethod
     public void ensurePreconditions() {
         app.goTo().userPage();
-        if (app.user().all().size() ==0) {
-            app.user().create(new UserData().withName("nameTest").withLastName("Name2Test"));
+        if (app.db().users().size() ==0) {
+            app.user().create(new UserData().withName("nameTest").withLastName("Name2Test").withPhoto(new File("src/test/resources/1.jpg")));
         }
     }
 
@@ -26,13 +28,14 @@ public class UserModificationTest extends TestBase {
     @Test
 
     public void testUserModify() {
-        Users before = app.user().all();
+        Users before = app.db().users();
         UserData modifiedUser = before.iterator().next();//выбираем юзера из множества случайным образом
         UserData user = new UserData().withId(modifiedUser.getId()).withName("nameTest")
-                .withLastName("Name2Test").withAddress("addressTest").withHomePhone("1234567").withEmail( "m@m.com");
+                .withLastName("Name2Test").withAddress("addressTest").withHomePhone("1234567").withEmail( "m@m.com")
+                .withPhoto(new File("src/test/resources/1.jpg"));
         app.user().modify(user);
         assertThat(app.user().count(), equalTo(before.size()));
-        Users after = app.user().all();
+        Users after = app.db().users();
         assertThat(after, equalTo(before.without(modifiedUser).withAdded(user)));
     }
 
