@@ -19,9 +19,11 @@ public class UserData {
     @Expose
     @Column(name = "lastname")
     private  String lastName;
-    @Transient
+    @Column(name = "address")
+    @Type(type="text")
     private  String address;
-    @Transient
+    @Column(name = "email")
+    @Type(type="text")
     private  String email;
     @Transient
     private  String group;
@@ -38,9 +40,11 @@ public class UserData {
     @Type(type="text")
     @Column(name = "work")
     private String work;
-    @Transient
+    @Column(name = "email2")
+    @Type(type="text")
     private String email2;
-    @Transient
+    @Column(name = "email3")
+    @Type(type="text")
     private String email3;
     @Transient
     private String allPhones;
