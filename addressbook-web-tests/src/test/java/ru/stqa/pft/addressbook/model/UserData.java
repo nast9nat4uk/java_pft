@@ -231,7 +231,11 @@ public class UserData {
     }
 
     public File getPhoto() {
-        return new File(photo);
+        if(photo!=null) {
+            return new File(photo);
+        } else {
+            return  null;
+        }
     }
 
 }

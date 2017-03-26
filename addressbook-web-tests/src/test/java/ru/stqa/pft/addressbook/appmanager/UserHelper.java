@@ -37,11 +37,8 @@ public class UserHelper extends HelperBase {
         type(By.name("address"), userData.getAddress());
         type(By.name("home"), userData.getHome());
         type(By.name("email"), userData.getEmail());
-        try {
-            attach(By.name("photo"), userData.getPhoto());
-        } catch (NullPointerException e) {
-            return;
-        }
+        attach(By.name("photo"), userData.getPhoto());
+
 
 
         if (creation) {
