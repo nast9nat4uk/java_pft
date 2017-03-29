@@ -1,5 +1,6 @@
 package ru.stqa.pft.addressbook.appmanager;
 
+import com.sun.jna.platform.win32.Netapi32Util;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,6 +10,7 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.UserData;
 import ru.stqa.pft.addressbook.model.Users;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
@@ -41,8 +43,8 @@ public class UserHelper extends HelperBase {
 
 
 
-        if (creation) {
-            if (userData.getGroup() == null) {
+        /*if (creation) {
+          if (userData.getGroup() == null) {
                 new Select(wd.findElement
                         (By.name("new_group"))).selectByValue("[none]");//группа по умолчанию
             } else {
@@ -51,7 +53,7 @@ public class UserHelper extends HelperBase {
 
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
-        }
+        }*/
 
     }
 
@@ -165,5 +167,21 @@ public class UserHelper extends HelperBase {
         return  allInfo;
     }
 
+    public void addUserToGroup(UserData user) {
+        selectUserById(user.getId());
+        click(By.name("add"));
 
+
+    }
+
+    public String getTargetGroup() {
+        String targetGroup = wd.findElement(By.xpath("//select[@name='to_group']/option[1]")).getText();
+        return targetGroup;
+    }
+
+    public Boolean assertUserIsInGroup(UserData user, String targetGroup) {
+        Select select = new Select(wd.findElement(By.name("group")));
+        select.selectByVisibleText(targetGroup);
+        return  isElementPresent(By.id(String.format("%s", user.getId())));
+    }
 }

@@ -7,6 +7,8 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 @XStreamAlias("user")
 @Entity
@@ -25,8 +27,7 @@ public class UserData {
     @Column(name = "email")
     @Type(type="text")
     private  String email;
-    @Transient
-    private  String group;
+
     @XStreamOmitField
     @Id
     @Column(name = "id")
@@ -59,6 +60,15 @@ public class UserData {
     @Type(type="text")
     private String  photo;
 
+    @ManyToMany (fetch = FetchType.EAGER)
+    @JoinTable (name = "address_in_groups",
+            joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<GroupData>();
+
+    public UserData withGroups(Set<GroupData> groups) {
+        this.groups = groups;
+        return  this;
+    }
 
     public UserData withName(String name) {
         this.name = name;
@@ -70,10 +80,6 @@ public class UserData {
         return this;
     }
 
-    public UserData withFullname(String fullname) {
-        this.fullname = fullname;
-        return this;
-    }
 
     public UserData withAddress(String address) {
         this.address = address;
@@ -84,12 +90,6 @@ public class UserData {
         this.email = email;
         return this;
     }
-
-    public UserData withGroup(String group) {
-        this.group = group;
-        return this;
-    }
-
 
     public UserData withId(int id) {
         this.id = id;
@@ -131,19 +131,6 @@ public class UserData {
         return this;
     }
 
-    public UserData withAllInfo(String allInfo) {
-        this.allInfo = allInfo;
-        return this;
-    }
-
-    public UserData withPhoto(File photo) {
-        this.photo = photo.getPath();
-        return this;
-    }
-
-
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -164,16 +151,6 @@ public class UserData {
         return result;
     }
 
-    @Override
-    public String toString() {
-        return "UserData{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", group='" + group + '\'' +
-                '}';
-    }
-
     public int getId() {
         return id;
     }
@@ -186,20 +163,12 @@ public class UserData {
         return lastName;
     }
 
-    public String getFullname() {
-        return fullname;
-    }
-
     public String getAddress() {
         return address;
     }
 
     public String getEmail() {
         return email;
-    }
-
-    public String getGroup() {
-        return group;
     }
 
     public String getHome() {
@@ -230,16 +199,25 @@ public class UserData {
         return allEmails;
     }
 
-    public String getAllInfo() {
-        return allInfo;
-    }
-
     public File getPhoto() {
         if(photo!=null) {
             return new File(photo);
         } else {
             return  null;
         }
+    }
+
+    public Groups getGroups() {
+        return new Groups(groups);
+    }
+
+    @Override
+    public String toString() {
+        return "UserData{" +
+                "name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", id=" + id +
+                '}';
     }
 
 }
