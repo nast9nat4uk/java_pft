@@ -14,6 +14,7 @@ import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
+import static org.testng.Assert.assertTrue;
 
 /**
  * Created by Настя on 19.02.2017.
@@ -170,8 +171,6 @@ public class UserHelper extends HelperBase {
     public void addUserToGroup(UserData user) {
         selectUserById(user.getId());
         click(By.name("add"));
-
-
     }
 
     public String getTargetGroup() {
@@ -183,5 +182,13 @@ public class UserHelper extends HelperBase {
         Select select = new Select(wd.findElement(By.name("group")));
         select.selectByVisibleText(targetGroup);
         return  isElementPresent(By.id(String.format("%s", user.getId())));
+    }
+
+    public void removeUserFromTargetGroup() {
+        click(By.name("remove"));
+    }
+
+    public void assertUserIsRemovedFromGroup(UserData selectedUser) {
+        assertTrue(!isElementPresent(By.id(String.format("%s",selectedUser.getId()))));
     }
 }

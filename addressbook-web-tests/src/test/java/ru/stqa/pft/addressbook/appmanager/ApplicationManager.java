@@ -83,4 +83,6 @@ public class ApplicationManager {
     public DBHelper db() {
         return  dbHelper;
     }
+
+
 }
