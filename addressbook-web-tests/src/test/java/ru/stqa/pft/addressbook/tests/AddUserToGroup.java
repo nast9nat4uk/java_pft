@@ -7,6 +7,9 @@ import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.UserData;
 import ru.stqa.pft.addressbook.model.Users;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by Настя on 29.03.2017.
  */
@@ -35,7 +38,7 @@ public class AddUserToGroup extends TestBase{
         String targetGroup = app.user().getTargetGroup();
         app.user().addUserToGroup(selectedUser);
         app.goTo().userPage();
-        app.user().assertUserIsInGroup(selectedUser, targetGroup);
+        //app.user().assertUserIsInGroup(selectedUser, targetGroup);//проверка через UI
+        app.user().isUserInGroup(selectedUser, targetGroup);
     }
-
 }

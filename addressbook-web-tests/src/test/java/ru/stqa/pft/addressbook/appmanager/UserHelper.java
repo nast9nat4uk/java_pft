@@ -7,11 +7,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.UserData;
 import ru.stqa.pft.addressbook.model.Users;
 
 import javax.jws.soap.SOAPBinding;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
 import static org.testng.Assert.assertTrue;
@@ -190,5 +193,23 @@ public class UserHelper extends HelperBase {
 
     public void assertUserIsRemovedFromGroup(UserData selectedUser) {
         assertTrue(!isElementPresent(By.id(String.format("%s",selectedUser.getId()))));
+    }
+
+    public void isUserInGroup(UserData selectedUser, String targetGroup) {
+        Set<GroupData> groups =new HashSet<GroupData>(selectedUser.getGroups());
+        for (GroupData group:groups){
+            if (group.getName().equals(targetGroup)){
+                return;
+            }
+        }
+    }
+
+    public void isUserNotInGroup(UserData selectedUser, String targetGroup) {
+        Set<GroupData> groups =new HashSet<GroupData>(selectedUser.getGroups());
+        for (GroupData group:groups){
+            if (group.getName().equals(targetGroup)){
+                return;
+            }
+        }
     }
 }
