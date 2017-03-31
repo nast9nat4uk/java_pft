@@ -25,6 +25,8 @@ import static org.testng.Assert.assertTrue;
 public class UserHelper extends HelperBase {
 
 
+    private int i;
+
     public UserHelper(WebDriver wd) {
         super(wd);
     }
@@ -197,19 +199,25 @@ public class UserHelper extends HelperBase {
 
     public void isUserInGroup(UserData selectedUser, String targetGroup) {
         Set<GroupData> groups =new HashSet<GroupData>(selectedUser.getGroups());
+        i=0;
         for (GroupData group:groups){
             if (group.getName().equals(targetGroup)){
-                return;
+               i = 1;
+                break;
             }
         }
+        assertTrue(i==1);
     }
 
     public void isUserNotInGroup(UserData selectedUser, String targetGroup) {
         Set<GroupData> groups =new HashSet<GroupData>(selectedUser.getGroups());
+        i=0;
         for (GroupData group:groups){
-            if (group.getName().equals(targetGroup)){
-                return;
+            if (group.getName().equals(targetGroup)) {
+                i = 1;
+                break;
             }
         }
+        assertTrue(i==0);
     }
 }

@@ -39,6 +39,7 @@ public class RemoveUserFromGroup extends  TestBase {
         app.user().removeUserFromTargetGroup();
         //app.goTo().targetGroup(targetGroup);
        // app.user().assertUserIsRemovedFromGroup(selectedUser);
+        app.user().isUserNotInGroup(selectedUser, targetGroup);
 
     }
 }
