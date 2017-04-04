@@ -19,6 +19,7 @@ public class ApplicationManager {
     private final Properties properties;
     private WebDriver wd;
     private String browser;
+    private RegistrationHelper registrationHelper;
 
     public ApplicationManager(String browser){
         this.browser = browser;
@@ -35,7 +36,7 @@ public class ApplicationManager {
     public void stop() {
         if (wd!=null) {
             wd.quit();
-        } 
+        }
     }
 
     public HttpSession newSession(){
@@ -48,7 +49,11 @@ public class ApplicationManager {
     }
 
     public RegistrationHelper registration() {
-        return  new RegistrationHelper(this);//this - ссылка на ApplicationManager
+
+        if(registrationHelper ==null){
+            registrationHelper = new RegistrationHelper(this);//this - ссылка на ApplicationManager
+        }
+        return registrationHelper;
     }
 
     public WebDriver getDriver() {
