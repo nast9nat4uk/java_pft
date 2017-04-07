@@ -22,7 +22,7 @@ public class ApplicationManager {
     private RegistrationHelper registrationHelper;
     private FtpHelper ftp;
     private MailHelper mailHelper;
-    private NavigationHelper navigationHelper;
+    private PasswordChangeHelper passwordChangeHelper;
 
     public ApplicationManager(String browser){
         this.browser = browser;
@@ -87,11 +87,11 @@ public class ApplicationManager {
         return  mailHelper;
     }
 
-    public NavigationHelper perform(){
-        if (navigationHelper ==null){
-            navigationHelper = new NavigationHelper(this);
+    public PasswordChangeHelper changePassword(){
+        if (passwordChangeHelper ==null){
+            passwordChangeHelper = new PasswordChangeHelper(this);
         }
-        return navigationHelper;
+        return passwordChangeHelper;
     }
 
 
