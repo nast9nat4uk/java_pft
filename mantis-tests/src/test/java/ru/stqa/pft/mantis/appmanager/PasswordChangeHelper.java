@@ -31,10 +31,10 @@ public class PasswordChangeHelper extends HelperBase{
         click(By.cssSelector("input[value='Reset Password']"));
     }
 
-    public void finish(String confirmationLink, String newpassword) {///ИЗМЕНИТЬ!
+    public void finish(String confirmationLink, String newpassword) {
         wd.get(confirmationLink);
-        type(By.name("password"),password);
-        type(By.name("password_confirm"),password);
+        type(By.name("password"),newpassword);
+        type(By.name("password_confirm"),newpassword);
         click((By.cssSelector("input[value='Update User']")));
     }
 }

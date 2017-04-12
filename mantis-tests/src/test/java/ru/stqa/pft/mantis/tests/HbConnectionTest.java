@@ -1,4 +1,4 @@
-package ru.stqa.pft.addressbook.tests;
+package ru.stqa.pft.mantis.tests;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -7,15 +7,16 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import ru.stqa.pft.addressbook.model.GroupData;
-import ru.stqa.pft.addressbook.model.UserData;
+import ru.stqa.pft.mantis.model.UserData;
 
 import java.util.List;
 
 /**
- * Created by Настя on 25.03.2017.
+ * Created by Настя on 10.04.2017.
  */
-public class HBConnectionTest1 {
+
+
+public class HbConnectionTest {
 
     private SessionFactory sessionFactory;
 
@@ -37,16 +38,17 @@ public class HBConnectionTest1 {
     }
 
     @Test
-   public void testHBConnection () {
 
-            Session session = sessionFactory.openSession();
-            session.beginTransaction();
-            List<UserData> result = session.createQuery( "from UserData where deprecated = '0000-00-00'" ).list();
-            for ( UserData user :  result) {
-                System.out.println(user);
-                System.out.println(user.getGroups());
-            }
-            session.getTransaction().commit();
-            session.close();
+    public void testHBConnection () {
+
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        List<UserData> result = session.createQuery( "from UserData" ).list();
+        for ( UserData user :  result) {
+            System.out.println(user);
+        }
+        session.getTransaction().commit();
+        session.close();
     }
+
 }

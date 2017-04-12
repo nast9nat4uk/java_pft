@@ -5,8 +5,13 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.lanwen.verbalregex.VerbalExpression;
 import ru.stqa.pft.mantis.model.MailMessage;
+import ru.stqa.pft.mantis.model.UserData;
+import ru.stqa.pft.mantis.model.Users;
 
+import java.io.IOException;
 import java.util.List;
+
+import static org.testng.Assert.assertTrue;
 
 /**
  * Created by Настя on 07.04.2017.
@@ -19,17 +24,21 @@ public class ChangePasswordTest extends TestBase {
     }
 
     @Test
-    public void changePasswordTest() {
+    public void changePasswordTest() throws IOException {
         app.getDriver();
+        //изменение паролья администратором
         app.changePassword().login("administrator", "root");
-        String username = "user1";
+        //получение пользователя из БД
+        Users listOfUsers  = app.db().users();
+        UserData selectedUser = listOfUsers.iterator().next();
+        String username = selectedUser.getUsername();
         String email = username + "@localhost.localdomain";
         app.changePassword().resetPassword(username);
-        List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
+        List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
         String confirmationLink = findConfirmationLink(mailMessages, email);
-        System.out.println(confirmationLink);
-        //app.changePassword().finish(confirmationLink, "newpassword");
-
+        String newpassword = "newpassword";
+        app.changePassword().finish(confirmationLink, newpassword);
+        assertTrue(app.newSession().login(username,newpassword));
 
     }
 
